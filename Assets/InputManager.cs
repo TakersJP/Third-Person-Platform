@@ -3,14 +3,14 @@ using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
-    public UnityEvent<Vector2> OnMove = new UnityEvent<Vector2>();
-    public UnityEvent OnSpacePressed = new UnityEvent();
+    public UnityEvent<Vector2> OnMove = new UnityEvent<Vector2>(); 
     public UnityEvent OnJump = new UnityEvent();
 
     void Update()
     {
          if (Input.GetKeyDown(KeyCode.Space))
         {
+            Debug.Log("Jump");
             OnJump?.Invoke();
         }
 

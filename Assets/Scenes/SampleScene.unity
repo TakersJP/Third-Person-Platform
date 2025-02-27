@@ -329,6 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 109954049}
   speed: 5
+  jumpForce: 5
   rb: {fileID: 152869976}
 --- !u!136 &152869975
 CapsuleCollider:
@@ -981,7 +982,7 @@ GameObject:
   - component: {fileID: 1010205706}
   m_Layer: 0
   m_Name: Plaform (3)
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1089,7 +1090,7 @@ GameObject:
   - component: {fileID: 1292254156}
   m_Layer: 0
   m_Name: Plaform (1)
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1197,7 +1198,7 @@ GameObject:
   - component: {fileID: 1297517779}
   m_Layer: 0
   m_Name: Plaform (2)
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1409,13 +1410,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773918188}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5675c6eb44d76465bac9a1edc679e690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 0}
   speed: 0
+  jumpForce: 5
   rb: {fileID: 0}
 --- !u!1 &1792928818
 GameObject:
@@ -1519,7 +1521,7 @@ Transform:
   m_GameObject: {fileID: 1792928818}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.9, y: 0.62, z: 25.5}
+  m_LocalPosition: {x: -1.9, y: 0.62, z: 24.1}
   m_LocalScale: {x: 1, y: 20, z: 55}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1539,7 +1541,7 @@ GameObject:
   - component: {fileID: 1808147358}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1646,8 +1648,8 @@ GameObject:
   - component: {fileID: 1823519615}
   - component: {fileID: 1823519614}
   m_Layer: 0
-  m_Name: Plane
-  m_TagString: Untagged
+  m_Name: Ground
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1864,8 +1866,8 @@ SceneRoots:
   - {fileID: 16337256}
   - {fileID: 1792928822}
   - {fileID: 560586296}
-  - {fileID: 299733362}
   - {fileID: 1808147361}
   - {fileID: 1292254159}
   - {fileID: 1297517782}
   - {fileID: 1010205709}
+  - {fileID: 299733362}

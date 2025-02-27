@@ -3,7 +3,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private InputManager inputManager;
-    [SerializeField] private float speed;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float jumpForce = 5f;
 
     public Rigidbody rb;
     private int jumpCount = 0;
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         inputManager.OnMove.AddListener(MovePlayer);
+        inputManager.OnJump.AddListener(JumpPlayer);
         rb = GetComponent<Rigidbody>();
     }
 
@@ -21,10 +23,21 @@ public class Player : MonoBehaviour
         rb.AddForce(speed * moveDirection);
     }
 
-    private void JumpPlayer ()
+    public void JumpPlayer()
     {
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-        rb.AddForce(Vector3.up * speed, ForceMode.Impulse);
-        jumpCount++;
+        if (jumpCount < maxJumps)
+        {
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); // Fix incorrect property
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            jumpCount++;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Platform"))
+        {
+            jumpCount = 0;
+        }
     }
 }
