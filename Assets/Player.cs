@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public Rigidbody rb;
     private int jumpCount = 0;
     private int maxJumps = 2;
+    private bool isGround = true;
 
     void Start()
     {
@@ -20,16 +21,29 @@ public class Player : MonoBehaviour
     private void MovePlayer(Vector2 direction)
     {
         Vector3 moveDirection = new(direction.x, 0f, direction.y);
-        rb.AddForce(speed * moveDirection);
+        moveDirection.y = 0f;
+
+        float moveMultiplier;
+        if (isGround)
+        {
+            moveMultiplier = 1f;
+        }
+        else
+        {
+            moveMultiplier = 0.3f; // 30% force in air
+        }
+
+         rb.AddForce(speed * moveDirection * moveMultiplier, ForceMode.Acceleration);
     }
 
     public void JumpPlayer()
     {
         if (jumpCount < maxJumps)
         {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); 
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x* 0.5f, 0, rb.linearVelocity.z* 0.5f); 
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             jumpCount++;
+            isGround = false;
         }
     }
 
@@ -38,6 +52,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Platform"))
         {
             jumpCount = 0;
+            isGround = true;
         }
     }
 }
