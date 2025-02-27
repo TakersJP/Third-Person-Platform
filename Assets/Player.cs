@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            moveMultiplier = 0.3f; // 30% force in air
+            moveMultiplier = 0.3f;
         }
 
          rb.AddForce(speed * moveDirection * moveMultiplier, ForceMode.Acceleration);
