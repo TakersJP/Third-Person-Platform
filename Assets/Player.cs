@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     {
         if (jumpCount < maxJumps)
         {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); // Fix incorrect property
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z); 
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             jumpCount++;
         }
