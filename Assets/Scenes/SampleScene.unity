@@ -259,9 +259,6 @@ MonoBehaviour:
   OnMove:
     m_PersistentCalls:
       m_Calls: []
-  OnSpacePressed:
-    m_PersistentCalls:
-      m_Calls: []
   OnJump:
     m_PersistentCalls:
       m_Calls: []
@@ -338,7 +335,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152869972}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c3c1698ab179d4e1a977016861be9fa8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

@@ -10,7 +10,6 @@ public class InputManager : MonoBehaviour
     {
          if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Jump");
             OnJump?.Invoke();
         }
 
