@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private float rotationSpeed = 10f; // Speed of rotation
+    [SerializeField] private float rotationSpeed = 10f;
 
     private Rigidbody rb;
     private int jumpCount = 0;
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 
     private void MovePlayer(Vector2 direction)
     {
-        if (direction == Vector2.zero) return; // No movement input, so no need to rotate
+        if (direction == Vector2.zero) return; 
 
         Vector3 moveDirection = CameraRelativeMovement(direction);
 
@@ -30,7 +30,6 @@ public class Player : MonoBehaviour
 
         rb.AddForce(speed * moveDirection * moveMultiplier, ForceMode.Acceleration);
 
-        // 🔄 Rotate player to face movement direction
         RotatePlayer(moveDirection);
     }
 
