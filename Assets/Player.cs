@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private InputManager inputManager;
-    [SerializeField] private Transform cameraTransform; // Reference to the camera transform
+    [SerializeField] private Transform cameraTransform; 
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 5f;
 
@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     {
         Vector3 moveDirection = CameraRelativeMovement(direction);
 
-        float moveMultiplier = isGround ? 1f : 0.3f; // Reduced movement in the air
+        float moveMultiplier = isGround ? 1f : 0.3f; 
 
         rb.AddForce(speed * moveDirection * moveMultiplier, ForceMode.Acceleration);
     }
@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
         if (cameraTransform == null)
         {
             Debug.LogWarning("Camera Transform is not assigned!");
-            return new Vector3(input.x, 0f, input.y); // Default movement if no camera assigned
+            return new Vector3(input.x, 0f, input.y); 
         }
 
         Vector3 forward = cameraTransform.forward;
