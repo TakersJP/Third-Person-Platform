@@ -3,9 +3,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private InputManager inputManager;
-    [SerializeField] private Transform cameraTransform; 
+    [SerializeField] private Transform cameraTransform;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float rotationSpeed = 10f; // Speed of rotation
 
     private Rigidbody rb;
     private int jumpCount = 0;
@@ -21,11 +22,16 @@ public class Player : MonoBehaviour
 
     private void MovePlayer(Vector2 direction)
     {
+        if (direction == Vector2.zero) return; // No movement input, so no need to rotate
+
         Vector3 moveDirection = CameraRelativeMovement(direction);
 
-        float moveMultiplier = isGround ? 1f : 0.3f; 
+        float moveMultiplier = isGround ? 1f : 0.3f;
 
         rb.AddForce(speed * moveDirection * moveMultiplier, ForceMode.Acceleration);
+
+        // 🔄 Rotate player to face movement direction
+        RotatePlayer(moveDirection);
     }
 
     private Vector3 CameraRelativeMovement(Vector2 input)
@@ -33,7 +39,7 @@ public class Player : MonoBehaviour
         if (cameraTransform == null)
         {
             Debug.LogWarning("Camera Transform is not assigned!");
-            return new Vector3(input.x, 0f, input.y); 
+            return new Vector3(input.x, 0f, input.y);
         }
 
         Vector3 forward = cameraTransform.forward;
@@ -48,11 +54,20 @@ public class Player : MonoBehaviour
         return (forward * input.y + right * input.x).normalized;
     }
 
+    private void RotatePlayer(Vector3 moveDirection)
+    {
+        if (moveDirection != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+    }
+
     public void JumpPlayer()
     {
         if (jumpCount < maxJumps)
         {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x * 0.5f, 0, rb.linearVelocity.z * 0.5f); 
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x * 0.5f, 0, rb.linearVelocity.z * 0.5f);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             jumpCount++;
             isGround = false;
