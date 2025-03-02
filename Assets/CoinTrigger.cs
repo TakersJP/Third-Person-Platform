@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CoinTrigger : MonoBehaviour
 {
-    private int coinCount = 0;
+    //private int coinCount = 0;
 
     private void OnTriggerEnter(Collider triggeredObject)
     {
@@ -14,8 +14,10 @@ public class CoinTrigger : MonoBehaviour
                 coinCollider.enabled = false;
             }
 
-            coinCount++;
-            Debug.Log("Coins Collected: " + coinCount);
+            //coinCount++;
+            //Debug.Log("Coins Collected: " + coinCount);
+            
+            GameManager.Instance.IncrementScore();
             Destroy(triggeredObject.gameObject); 
         }
     }
