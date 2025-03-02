@@ -3,10 +3,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private Transform cameraTransform; // Reference to the camera transform
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 5f;
 
-    public Rigidbody rb;
+    private Rigidbody rb;
     private int jumpCount = 0;
     private int maxJumps = 2;
     private bool isGround = true;
@@ -20,27 +21,38 @@ public class Player : MonoBehaviour
 
     private void MovePlayer(Vector2 direction)
     {
-        Vector3 moveDirection = new(direction.x, 0f, direction.y);
-        moveDirection.y = 0f;
+        Vector3 moveDirection = CameraRelativeMovement(direction);
 
-        float moveMultiplier;
-        if (isGround)
+        float moveMultiplier = isGround ? 1f : 0.3f; // Reduced movement in the air
+
+        rb.AddForce(speed * moveDirection * moveMultiplier, ForceMode.Acceleration);
+    }
+
+    private Vector3 CameraRelativeMovement(Vector2 input)
+    {
+        if (cameraTransform == null)
         {
-            moveMultiplier = 1f;
-        }
-        else
-        {
-            moveMultiplier = 0.3f;
+            Debug.LogWarning("Camera Transform is not assigned!");
+            return new Vector3(input.x, 0f, input.y); // Default movement if no camera assigned
         }
 
-         rb.AddForce(speed * moveDirection * moveMultiplier, ForceMode.Acceleration);
+        Vector3 forward = cameraTransform.forward;
+        Vector3 right = cameraTransform.right;
+
+        forward.y = 0;
+        right.y = 0;
+
+        forward.Normalize();
+        right.Normalize();
+
+        return (forward * input.y + right * input.x).normalized;
     }
 
     public void JumpPlayer()
     {
         if (jumpCount < maxJumps)
         {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x* 0.5f, 0, rb.linearVelocity.z* 0.5f); 
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x * 0.5f, 0, rb.linearVelocity.z * 0.5f); 
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             jumpCount++;
             isGround = false;

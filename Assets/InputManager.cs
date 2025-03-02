@@ -8,12 +8,12 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
+        Vector2 input = Vector2.zero;
          if (Input.GetKeyDown(KeyCode.Space))
         {
             OnJump?.Invoke();
         }
 
-        Vector2 input = Vector2.zero;
         if (Input.GetKey(KeyCode.W)){
             input += Vector2.up;
         }
